@@ -19,7 +19,7 @@ const page = () => {
         <Navbar />
         <div className=" font-manrop h-full dark:bg-[#e4f2f3] w-full">
           <div className=" justify-center py-[1rem] h-full w-full flex xxl:flex-row xl:flex-row sxl:flex-row bxl:flex-row lg:flex-row md:flex-col sm:flex-col xd:flex-col  xxl:mt-[6.5rem] xl:mt-[6.5rem] lg:mt-[6.5rem] md:mt-[9rem] sm:mt-[6.5rem] xd:mt-[6.5rem] gap-[1rem] ">
-            <div className="h-[4rem] w-full  xxl:rounded-[1rem] bxl:rounded-[1rem] xl:rounded-[1rem] sxl:rounded-[1rem] lg:rounded-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#17181A] p-[0%_2%] flex items-center justify-start gap-[1rem] xxl:flex xl:flex sxl:flex bxl:flex lg:flex-row md:hidden sm:hidden xd:hidden ">
+            <div className="h-[4rem] w-full  xxl:rounded-[1rem] bxl:rounded-[1rem] xl:rounded-[1rem] sxl:rounded-[1rem] lg:rounded-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#17181A] p-[0%_2%] flex items-center justify-start gap-[1rem] xxl:flex xl:flex sxl:flex bxl:flex lg:flex md:hidden sm:hidden xd:hidden ">
               <div className=" font-[800] text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[1.5rem] flex justify-between w-full">
                 <div>Stats</div>
                 <div className=" text-[#2ED3B7] font-[800] text-[0.75rem] flex ">
