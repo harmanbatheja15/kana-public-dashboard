@@ -42,12 +42,12 @@ const Navbar = () => {
   };
   return (
     <div className="  xxl:!w-[1600px] bxl:!w-[1600px] xl:!w-[85%] sxl:!w-[90%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]  z-[1] fixed top-0 !font-manrop ">
-      <div className=" flex justify-between items-start w-full font-manrop  ">
+      <div className=" flex justify-between items-start w-full !font-manrop  ">
         <div className="h-[6.5rem] w-full  xxl:rounded-b-[1rem] bxl:rounded-b-[1rem] xl:rounded-b-[1rem] sxl:rounded-b-[1rem] lg:rounded-b-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#111213] p-[0%_2%] flex items-center justify-start gap-[1rem] ">
           <div className="xxl:hidden xl:hidden sxl:hidden bxl:hidden lg:hidden md:flex sm:flex xd:flex w-full justify-between">
             <div className=" flex ">
               <Image src={MobileLogo} alt="Logo" />
-              <div className=" gap-[0.5rem] text-[#FFFFFFCC] dark:text-[#4A4B4D] p-5 font-[800] text-[0.875rem]">Stats</div>
+              <div className=" gap-[0.5rem] text-[#FFFFFFCC] dark:text-[#4A4B4D] p-5 font-[800] text-[0.875rem] !font-manrop">Stats</div>
             </div>
             <div className="flex">
               <div onClick={handleMobileMenu} className=" flex">
