@@ -10,11 +10,6 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
-      // fontFamily: {
-      //   inter: ["Inter"],
-      //   manrop: ['Manrope']
-      // },
-
       fontFamily: {
         Inter: ["inter"],
         Manrope: ["Manrope"],

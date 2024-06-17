@@ -27,7 +27,6 @@ const LineChart = () => {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'My First dataset',
         backgroundColor: '#FFFFFF1A',
         borderColor: 'rgba(75,192,192,1)',
         data: [65, 59, 80, 81, 56, 55, 40],
@@ -39,10 +38,10 @@ const LineChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const, 
+        display: false, // Hides the legend
       },
       title: {
-        display: true,
+        display: false, // Hides the title
       },
     },
     scales: {

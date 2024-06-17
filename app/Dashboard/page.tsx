@@ -36,14 +36,14 @@ const page = () => {
               </div>
             </div>
             <div className=" xxl:hidden sxl:hidden bxl:hidden lg:hidden md:flex-col sm:flex-col xd:flex-col justify-center items-center text-[#2ED3B7] font-[800]">
-            <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] flex justify-between p-5">
-              <div>Overall</div>
-              <Image src={GreenDown} alt="GreenDown"/>
-            </div>
-            <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] my-2 flex justify-between p-5">
-              <div>This Week</div>
-              <Image src={GreenDown} alt="GreenDown"/>
-            </div>
+              <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] flex justify-between p-5">
+                <div>Overall</div>
+                <Image src={GreenDown} alt="GreenDown" />
+              </div>
+              <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] my-2 flex justify-between p-5">
+                <div>This Week</div>
+                <Image src={GreenDown} alt="GreenDown" />
+              </div>
             </div>
           </div>
           <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col">
@@ -62,7 +62,7 @@ const page = () => {
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
                   <Image src={Data} alt="Data" />
-                  <p className=" pl-2 py-0.5">Data</p>
+                  <p className=" pl-2">Data</p>
                 </div>
               </div>
               <LineChart />
@@ -82,7 +82,7 @@ const page = () => {
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
                   <Image src={Data} alt="Data" />
-                  <p className=" pl-2 py-0.5">Data</p>
+                  <p className=" pl-2 ">Data</p>
                 </div>
               </div>
               <LineChart />
@@ -104,7 +104,7 @@ const page = () => {
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
                   <Image src={Data} alt="Data" />
-                  <p className=" pl-2 py-0.5">Data</p>
+                  <p className=" pl-2 ">Data</p>
                 </div>
               </div>
               <LineChart />
@@ -124,7 +124,7 @@ const page = () => {
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
                   <Image src={Data} alt="Data" />
-                  <p className=" pl-2 py-0.5">Data</p>
+                  <p className=" pl-2 ">Data</p>
                 </div>
               </div>
               <LineChart />
@@ -134,32 +134,36 @@ const page = () => {
             <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
                 <div>Chain popularity (Origin)</div>
-                <div className=" flex p-2 cursor-pointer">
+                <div className=" flex p-1 cursor-pointer">
                   <span className=" text-[#2ED3B7] font-[800] text-[0.75rem]">
                     Volume
                   </span>
-                  <Image src={DropDown} alt="DropDown" className=" ml-2 pt-1" />
+                  <Image
+                    src={DropDown}
+                    alt="DropDown"
+                    className=" ml-1 mt-0.5"
+                  />
                 </div>
               </div>
               <div className=" h-[2.25rem] border-b-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:border-[#e3e8ef] dark:bg-[#f2f9f9]">
-                <div className="flex justify-between p-[0%_17%]">
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                <div className="flex justify-between p-[0.5%_17%]">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem]  flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
@@ -170,32 +174,36 @@ const page = () => {
             <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] xxl:ml-2 xl:ml-2 sxl:ml-2 bxl:ml-2 lg:ml-2 md:ml-0 sm:ml-0 xd:ml-0 xxl:mt-0 xl:mt-0 bxl:mt-0 lg:mt-0 sxl:mt-0 md:mt-2 sm:mt-2 xd:mt-2 bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
                 <div>Chain popularity (Desitination)</div>
-                <div className=" flex p-2 cursor-pointer">
+                <div className=" flex p-1 cursor-pointer">
                   <span className=" text-[#2ED3B7] font-[800] text-[0.75rem]">
                     Volume
                   </span>
-                  <Image src={DropDown} alt="DropDown" className=" ml-2 pt-1" />
+                  <Image
+                    src={DropDown}
+                    alt="DropDown"
+                    className=" ml-1 mt-0.5"
+                  />
                 </div>
               </div>
               <div className=" h-[2.25rem] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#f2f9f9]">
-                <div className="flex justify-between p-[0%_17%]">
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                <div className="flex justify-between p-[0.5%_17%]">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem]  flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
-                  <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+                  <div className="text-[#777879] font-[400] text-[0.875rem] flex">
                     <Image src={Data} alt="Data" />
                     <p className=" pl-2 py-0.5">Data</p>
                   </div>
@@ -231,7 +239,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -247,7 +255,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -263,7 +271,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -279,7 +287,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -295,7 +303,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -311,7 +319,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
@@ -327,7 +335,7 @@ const page = () => {
                       USDC/APT
                     </div>
                   </div>
-                  <div className=" w-[20%] flex justify-end">
+                  <div className=" w-[20%] flex justify-center">
                     <Image src={CoinSwap} alt="CoinSwap" />
                     <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
                       Swap
