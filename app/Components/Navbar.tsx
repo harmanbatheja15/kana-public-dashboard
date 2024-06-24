@@ -30,6 +30,10 @@ const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [isLeaderBoard, setIsLeaderBoard] = useState(false);
+  const [isAllTokenDropdwon, setIsAllTokenDropdwon] = useState(false);
+  const [isOverallDropdown, setIsOverallDropdown] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("All Tokens");
+  const [overallOptions, setOverallOptions] = useState("Overall");
   const handleLeaderBoard = () => {
     if (isLeaderBoard === false) {
       setIsLeaderBoard(true);
@@ -40,6 +44,22 @@ const Navbar = () => {
   const handleMobileMenu = () => {
     setIsMobileMenuActive(!isMobileMenuActive);
   };
+  const handleTokenDropdowwn = () => {
+    setIsAllTokenDropdwon(!isAllTokenDropdwon);
+  };
+  const handleSelectOption = (option: string) => {
+    setSelectedOption(option);
+    setIsAllTokenDropdwon(false);
+  };
+  const handleOverallDropdowwn = () => {
+    setIsOverallDropdown(!isOverallDropdown);
+  };
+  const handleOverallOption = (tokenoptions: any) => {
+    setOverallOptions(tokenoptions);
+    setIsOverallDropdown(false);
+  };
+  const options = ["All Tokens", "Token 1", "Token 2", "Token 3"];
+  const tokenoptions = ["Overall", "Data1", "Data2", "Data3"];
   return (
     <div className="  xxl:!w-[1600px] bxl:!w-[1600px] xl:!w-[85%] sxl:!w-[90%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]  z-[1] fixed top-0 !font-manrop ">
       <div className=" flex justify-between items-start w-full !font-manrop  ">
@@ -47,7 +67,9 @@ const Navbar = () => {
           <div className="xxl:hidden xl:hidden sxl:hidden bxl:hidden lg:hidden md:flex sm:flex xd:flex w-full justify-between">
             <div className=" flex ">
               <Image src={MobileLogo} alt="Logo" />
-              <div className=" gap-[0.5rem] text-[#FFFFFFCC] dark:text-[#4A4B4D] p-5 font-[800] text-[0.875rem] !font-manrop">Stats</div>
+              <div className=" gap-[0.5rem] text-[#FFFFFFCC] dark:text-[#4A4B4D] p-5 font-[800] text-[0.875rem] !font-manrop">
+                Stats
+              </div>
             </div>
             <div className="flex">
               <div onClick={handleMobileMenu} className=" flex">
@@ -74,23 +96,58 @@ const Navbar = () => {
               </a>
             </div>
           </div>
-          <div className=" flex flex-row justify-center items-center cursor-pointer xxl:w-[32%] bxl:w-[32%] xl:w-[32%] sxl:w-[32%] lg:w-[32%] h-[3.5rem] rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]   2xl:inline xl:inline lg:inline md:hidden sm:hidden xd:hidden">
-            <div className="flex flex-row justify-between items-centerflex-wrap p-4">
+          <div
+            className="flex flex-row justify-center items-center cursor-pointer xxl:w-[32%] bxl:w-[32%] xl:w-[32%] sxl:w-[32%] lg:w-[32%] h-[3.5rem] rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem] 2xl:inline xl:inline lg:inline md:hidden sm:hidden xd:hidden"
+            onClick={handleTokenDropdowwn}
+          >
+            <div className="flex flex-row justify-between items-center flex-wrap p-4">
               <div className="font-bold text-[#2ED3B7] dark:text-[#777879] pl-2">
-                All Tokens
+                {selectedOption}
               </div>
-              <Image src={GreenDown} alt="GreenDown"/>
+              <Image src={GreenDown} alt="GreenDown" />
             </div>
-          </div>
-          <div className=" flex flex-row justify-center items-center cursor-pointer xxl:w-[32%] bxl:w-[32%] xl:w-[32%] sxl:w-[32%] lg:w-[32%] h-[3.5rem] rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]   2xl:inline xl:inline lg:inline md:hidden sm:hidden xd:hidden">
-            <div className="flex flex-row justify-between items-centerflex-wrap p-4">
-              <div className="font-bold text-[#2ED3B7] dark:text-[#777879] pl-2">
-                Overall
+            {isAllTokenDropdwon && (
+              <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
+                {options.map((option, index) => (
+                  <div
+                    key={index}
+                    className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
+                    onClick={() => handleSelectOption(option)}
+                  >
+                    {option}
+                  </div>
+                ))}
               </div>
-              <Image src={GreenDown} alt="GreenDown"/>
+            )}
+          </div>
 
+          <div
+            className="flex flex-row justify-center items-center cursor-pointer xxl:w-[32%] bxl:w-[32%] xl:w-[32%] sxl:w-[32%] lg:w-[32%] h-[3.5rem] rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem] 2xl:inline xl:inline lg:inline md:hidden sm:hidden xd:hidden"
+            onClick={handleOverallDropdowwn}
+          >
+            <div className="flex flex-row justify-between items-center flex-wrap p-4">
+              <div className="font-bold text-[#2ED3B7] dark:text-[#777879] pl-2">
+                {overallOptions}
+              </div>
+              <Image src={GreenDown} alt="GreenDown" />
             </div>
+            {isOverallDropdown && (
+              <div>
+                <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
+                  {tokenoptions.map((option, index) => (
+                    <div
+                      key={index}
+                      className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
+                      onClick={() => handleOverallOption(option)}
+                    >
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
+
           <div
             className="dark:bg-[#e4f2f3] dark:text-[#0C0C0D] bg-[#1D1E20] font-inter !rounded-[1rem] text-[#777879]  font-[800]  h-[3.5rem]   py-[1rem] px-[1.5rem] flex flex-row justify-between gap-[1rem] items-center  cursor-pointer xxl:flex sxl:flex bxl:flex xl:flex lg:flex md:hidden sm:hidden xd:hidden "
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

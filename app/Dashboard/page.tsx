@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../Components/Navbar";
 import LineChart from "../Components/Linearchart";
 import DonutChart from "../Components/Donutchart";
@@ -11,8 +12,37 @@ import solana from "../assets/solana.svg";
 import Aptos from "../assets/aptos.svg";
 import Data from "../assets/data.svg";
 import GreenDown from "../assets/greendropdown.svg";
-
+import { swapDashboard, fetchTotalVolume,fetchTotalCount } from "../utils/helper";
+import { Skeleton } from "antd";
 const page = () => {
+  const [selected, setSelected] = useState("Today");
+  const [swapData, setSwapData] = useState(null);
+  const [tradeData, setTradeData] = useState(null);
+  const [tradeCount,setTradeCount]=useState<any>();
+  const [loading, setLoading] = useState(true);
+  const handleButtonClick = (period: any) => {
+    setSelected(period);
+  };
+
+  useEffect(()=>{
+    const getOverallTransactionCount =async()=>{
+      try{
+        const overallData= await fetchTotalVolume();
+        console.log("overallData: ", overallData);
+        const overallCount =await fetchTotalCount();
+        console.log("overallCount: ", overallCount);
+        setTradeData(overallData?.last30Days?.volume);
+        setTradeCount(overallCount?.totalVolume?.count);
+        setLoading(false)
+      }
+
+      catch(e){
+        console.log(e, "error fetching data");
+      }
+    };
+    getOverallTransactionCount();
+  },[]);
+
   return (
     <div className="w-full h-full flex flex-row justify-center items-center dark:bg-[#e4f2f3]  bg-[#0C0C0D] font-inter   ">
       <div className="flex flex-col  xxl:!w-[1600px] bxl:!w-[1600px] xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]    ">
@@ -22,14 +52,35 @@ const page = () => {
             <div className="h-[4rem] w-full  xxl:rounded-[1rem] bxl:rounded-[1rem] xl:rounded-[1rem] sxl:rounded-[1rem] lg:rounded-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#17181A] p-[0%_2%] flex items-center justify-start gap-[1rem] xxl:flex xl:flex sxl:flex bxl:flex lg:flex md:hidden sm:hidden xd:hidden ">
               <div className=" font-[800] text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[1.5rem] flex justify-between w-full">
                 <div>Stats</div>
-                <div className=" text-[#2ED3B7] font-[800] text-[0.75rem] flex ">
-                  <div className="flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer">
+                <div className="text-[#2ED3B7] font-[800] text-[0.75rem] flex">
+                  <div
+                    className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
+                      selected === "Today"
+                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        : ""
+                    }`}
+                    onClick={() => handleButtonClick("Today")}
+                  >
                     Today
                   </div>
-                  <div className=" border-2 border-[#2ED3B7] rounded-[0.5rem] flex justify-center items-center cursor-pointer p-[0.5rem_1rem_0.5rem_1rem]">
+                  <div
+                    className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
+                      selected === "This Week"
+                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        : ""
+                    }`}
+                    onClick={() => handleButtonClick("This Week")}
+                  >
                     This Week
                   </div>
-                  <div className="flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer">
+                  <div
+                    className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
+                      selected === "This Month"
+                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        : ""
+                    }`}
+                    onClick={() => handleButtonClick("This Month")}
+                  >
                     This Month
                   </div>
                 </div>
@@ -46,8 +97,9 @@ const page = () => {
               </div>
             </div>
           </div>
+          <div></div>
           <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col">
-            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
+            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] dark:border-[#e3e8ef] border-[#FFFFFF1A] border-b-[0.063rem]">
                 Transaction Count
               </div>
@@ -57,7 +109,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                    $12,345,678
+                     {loading ? (
+                        <Skeleton
+                          active
+                          paragraph={false}
+                          title={{ width: 100 }}
+                          style={{
+                            backgroundColor: "#ffffff1a",
+                            width: 50,
+                            borderRadius: "1rem",
+                            marginTop: "0.3rem",
+                          }}
+                        />
+                      ) : (
+                        tradeCount
+                      )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -67,7 +133,7 @@ const page = () => {
               </div>
               <LineChart />
             </div>
-            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] xxl:ml-2 xl:ml-2 sxl:ml-2 bxl:ml-2 lg:ml-2 md:ml-0 sm:ml-0 xd:ml-0 xxl:mt-0 xl:mt-0 bxl:mt-0 lg:mt-0 sxl:mt-0 md:mt-2 sm:mt-2 xd:mt-2 dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
+            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full  rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] xxl:ml-2 xl:ml-2 sxl:ml-2 bxl:ml-2 lg:ml-2 md:ml-0 sm:ml-0 xd:ml-0 xxl:mt-0 xl:mt-0 bxl:mt-0 lg:mt-0 sxl:mt-0 md:mt-2 sm:mt-2 xd:mt-2 dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] dark:border-[#e3e8ef] border-[#FFFFFF1A] border-b-[0.063rem]">
                 Volume
               </div>
@@ -77,7 +143,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                    $12,345,678
+                  {loading ? (
+                        <Skeleton
+                          active
+                          paragraph={false}
+                          title={{ width: 100 }}
+                          style={{
+                            backgroundColor: "#ffffff1a",
+                            width: 50,
+                            borderRadius: "1rem",
+                            marginTop: "0.3rem",
+                          }}
+                        />
+                      ) : (
+                        tradeData
+                      )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -89,7 +169,7 @@ const page = () => {
             </div>
           </div>
           <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col my-4">
-            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
+            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-3 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem]">
                 Total Active Wallets
               </div>
@@ -131,7 +211,7 @@ const page = () => {
             </div>
           </div>
           <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col my-4">
-            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:bg-[#FCFDFE]">
+            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
                 <div>Chain popularity (Origin)</div>
                 <div className=" flex p-1 cursor-pointer">
@@ -213,7 +293,7 @@ const page = () => {
             </div>
           </div>
           <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col my-4">
-            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full h-[28rem] rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
+            <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-3 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
                 <div className=" p-1">Top Trading Pair</div>
                 <div className=" flex p-2 cursor-pointer">
