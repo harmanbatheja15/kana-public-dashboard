@@ -26,6 +26,9 @@ import ChevronDownDark from "../assets/chevron-down-dark.svg";
 import GreenDown from "../assets/greendropdown.svg";
 import Back from "../assets/back dark.svg";
 import MobileLogo from "../assets/MobileLogo.svg";
+import ClickAwayListener from "react-click-away-listener";
+import { Store } from "../Store/types";
+import { useStore } from "../Store";
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
@@ -33,13 +36,18 @@ const Navbar = () => {
   const [isAllTokenDropdwon, setIsAllTokenDropdwon] = useState(false);
   const [isOverallDropdown, setIsOverallDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("All Tokens");
-  const [overallOptions, setOverallOptions] = useState("Overall");
+  const{setOverallOptions,overallOptions}=useStore();
+
   const handleLeaderBoard = () => {
     if (isLeaderBoard === false) {
       setIsLeaderBoard(true);
     } else {
       setIsLeaderBoard(false);
     }
+  };
+  const handleClickAway = () => {
+    isOverallDropdown && setIsOverallDropdown(false);
+    isAllTokenDropdwon && setIsAllTokenDropdwon(false);
   };
   const handleMobileMenu = () => {
     setIsMobileMenuActive(!isMobileMenuActive);
@@ -59,9 +67,9 @@ const Navbar = () => {
     setIsOverallDropdown(false);
   };
   const options = ["All Tokens", "Token 1", "Token 2", "Token 3"];
-  const tokenoptions = ["Overall", "Data1", "Data2", "Data3"];
+  const tokenoptions = ["Overall", "TradeBook", "Swap", "OnchainSwap"];
   return (
-    <div className="  xxl:!w-[1600px] bxl:!w-[1600px] xl:!w-[85%] sxl:!w-[90%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]  z-[1] fixed top-0 !font-manrop ">
+    <div className="  xxl:!w-[95%] bxl:!w-[95%] xl:!w-[90%] sxl:!w-[90%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]  z-[1] fixed top-0 !font-manrop ">
       <div className=" flex justify-between items-start w-full !font-manrop  ">
         <div className="h-[6.5rem] w-full  xxl:rounded-b-[1rem] bxl:rounded-b-[1rem] xl:rounded-b-[1rem] sxl:rounded-b-[1rem] lg:rounded-b-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#111213] p-[0%_2%] flex items-center justify-start gap-[1rem] ">
           <div className="xxl:hidden xl:hidden sxl:hidden bxl:hidden lg:hidden md:flex sm:flex xd:flex w-full justify-between">
@@ -107,17 +115,19 @@ const Navbar = () => {
               <Image src={GreenDown} alt="GreenDown" />
             </div>
             {isAllTokenDropdwon && (
-              <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
-                {options.map((option, index) => (
-                  <div
-                    key={index}
-                    className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
-                    onClick={() => handleSelectOption(option)}
-                  >
-                    {option}
-                  </div>
-                ))}
-              </div>
+              <ClickAwayListener onClickAway={handleClickAway}>
+                <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
+                  {options.map((option, index) => (
+                    <div
+                      key={index}
+                      className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
+                      onClick={() => handleSelectOption(option)}
+                    >
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              </ClickAwayListener>
             )}
           </div>
 
@@ -131,20 +141,23 @@ const Navbar = () => {
               </div>
               <Image src={GreenDown} alt="GreenDown" />
             </div>
+
             {isOverallDropdown && (
-              <div>
-                <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
-                  {tokenoptions.map((option, index) => (
-                    <div
-                      key={index}
-                      className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
-                      onClick={() => handleOverallOption(option)}
-                    >
-                      {option}
-                    </div>
-                  ))}
+              <ClickAwayListener onClickAway={handleClickAway}>
+                <div>
+                  <div className="cursor-pointer w-full mt-3 h-auto max-h-[10rem] overflow-auto rounded-[1rem] dark:bg-[#EFF7F8] bg-[#1D1E20] gap-[1rem]">
+                    {tokenoptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className="font-bold text-[#2ED3B7] dark:text-[#777879] p-4"
+                        onClick={() => handleOverallOption(option)}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </ClickAwayListener>
             )}
           </div>
 

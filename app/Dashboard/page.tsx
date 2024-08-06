@@ -12,40 +12,121 @@ import solana from "../assets/solana.svg";
 import Aptos from "../assets/aptos.svg";
 import Data from "../assets/data.svg";
 import GreenDown from "../assets/greendropdown.svg";
-import { swapDashboard, fetchTotalVolume,fetchTotalCount } from "../utils/helper";
+import kanaloader from "@/app/kanaloader.json";
+import {
+  fetchOnchainSwapTotalCount,
+  fetchswapTotalCount,
+  fetchTotalVolume,
+  fetchTradeTotalCount,
+  fetchTradeTotalVolume,
+  fetchTradeActiveWallet,
+  fetchToptradingPairs,
+  fetchTokenURL,
+  fetchSwapTotalCount,
+  fetchReportByDateRange,
+} from "../utils/helper";
 import { Skeleton } from "antd";
+import { useStore } from "../Store";
+import Lottie from "react-lottie-player";
 const page = () => {
-  const [selected, setSelected] = useState("Today");
-  const [swapData, setSwapData] = useState(null);
-  const [tradeData, setTradeData] = useState(null);
-  const [tradeCount,setTradeCount]=useState<any>();
-  const [loading, setLoading] = useState(true);
+  const {
+    isSelected,
+    updateIsSelected,
+    loading,
+    setLoading,
+    tradeCount,
+    swapTotalCount,
+    onchainTotalCount,
+    tradeData,
+    setTradeCount,
+    updateSwapTotalCount,
+    updateOnchainTotalCount,
+    setTradeData,
+    isTradeTotalVolume,
+    setIsTradeTotalVolume,
+    isTradeActiveWallets,
+    setIsTradeActiveWallets,
+  } = useStore();
   const handleButtonClick = (period: any) => {
-    setSelected(period);
+    updateIsSelected(period);
   };
+  const [topTradingPairs, setTopTradingPairs] = useState([]);
+  const [isError, setIsError] = useState(true);
+  const [chartData, setChartData] = useState(null);
+  const [rows, setRows] = useState([]);  
 
-  useEffect(()=>{
-    const getOverallTransactionCount =async()=>{
-      try{
-        const overallData= await fetchTotalVolume();
+  useEffect(() => {
+    const getOverallTransactionCount = async () => {
+      try {
+        setLoading(true);
+        const overallData = await fetchTotalVolume();
         console.log("overallData: ", overallData);
-        const overallCount =await fetchTotalCount();
+        const overallCount = await fetchTradeTotalCount();
         console.log("overallCount: ", overallCount);
-        setTradeData(overallData?.last30Days?.volume);
-        setTradeCount(overallCount?.totalVolume?.count);
-        setLoading(false)
-      }
+        const overallSwapCount = await fetchSwapTotalCount();
+        console.log("overallSwapCount: ", overallSwapCount);
+        const overallOnchainCount = await fetchOnchainSwapTotalCount();
+        console.log("overallOnchainCount: ", overallOnchainCount);
+        const overallTradeVolume = await fetchTradeTotalVolume();
+        console.log("overallTradeVolume: ", overallTradeVolume);
+        const overallTradeActiveWallets = await fetchTradeActiveWallet();
+        console.log("overallTradeActiveWallets: ", overallTradeActiveWallets);
+        const overallTradingPairs = await fetchToptradingPairs();
+        console.log("overallTradingPairs: ", overallTradingPairs);
 
-      catch(e){
+        switch (isSelected) {
+          case "Today":
+            setTradeData(overallData?.today?.volume);
+            setTradeCount(overallCount?.today?.count);
+            updateSwapTotalCount(overallSwapCount?.today?.count);
+            updateOnchainTotalCount(overallOnchainCount?.today?.count);
+            setIsTradeTotalVolume(overallTradeVolume?.today?.volume);
+            setIsTradeActiveWallets(
+              overallTradeActiveWallets?.TotalActiveWalletsCount
+            );
+            setTopTradingPairs(overallTradingPairs?.data?.lastDay || []);
+
+            break;
+          case "This Week":
+            setTradeData(overallData?.last7Days?.volume);
+            setTradeCount(overallCount?.last7Days?.count);
+            updateSwapTotalCount(overallSwapCount?.last7Days?.count);
+            updateOnchainTotalCount(overallOnchainCount?.last7Days?.count);
+            setIsTradeTotalVolume(overallTradeVolume?.last7Days?.volume);
+            setIsTradeActiveWallets(
+              overallTradeActiveWallets?.TotalActiveWalletsCount
+            );
+            setTopTradingPairs(overallTradingPairs?.data?.last7Days || []);
+
+            break;
+          case "This Month":
+            setTradeData(overallData?.last30Days?.volume);
+            setTradeCount(overallCount?.last30Days?.count);
+            updateSwapTotalCount(overallSwapCount?.last30Days?.count);
+            updateOnchainTotalCount(overallOnchainCount?.last30Days?.count);
+            setIsTradeTotalVolume(overallTradeVolume?.last30Days?.volume);
+            setIsTradeActiveWallets(
+              overallTradeActiveWallets?.TotalActiveWalletsCount
+            );
+            setTopTradingPairs(overallTradingPairs?.data?.last30Days || []);
+
+            break;
+          default:
+            break;
+        }
+        // setTopTradingPairs(overallTradingPairs?.data?.last7Days || []);
+        setLoading(false);
+      } catch (e) {
         console.log(e, "error fetching data");
       }
     };
+
     getOverallTransactionCount();
-  },[]);
+  }, [isSelected]);
 
   return (
     <div className="w-full h-full flex flex-row justify-center items-center dark:bg-[#e4f2f3]  bg-[#0C0C0D] font-inter   ">
-      <div className="flex flex-col  xxl:!w-[1600px] bxl:!w-[1600px] xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]    ">
+      <div className="flex flex-col  xxl:!w-[100%] bxl:!w-[100%] xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]    ">
         <Navbar />
         <div className=" font-manrop h-full dark:bg-[#e4f2f3] w-full">
           <div className=" justify-center py-[1rem] h-full w-full flex xxl:flex-row xl:flex-row sxl:flex-row bxl:flex-row lg:flex-row md:flex-col sm:flex-col xd:flex-col  xxl:mt-[6.5rem] xl:mt-[6.5rem] lg:mt-[6.5rem] md:mt-[9rem] sm:mt-[6.5rem] xd:mt-[6.5rem] gap-[1rem] ">
@@ -55,7 +136,7 @@ const page = () => {
                 <div className="text-[#2ED3B7] font-[800] text-[0.75rem] flex">
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
-                      selected === "Today"
+                      isSelected === "Today"
                         ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
                         : ""
                     }`}
@@ -65,7 +146,7 @@ const page = () => {
                   </div>
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
-                      selected === "This Week"
+                      isSelected === "This Week"
                         ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
                         : ""
                     }`}
@@ -75,7 +156,7 @@ const page = () => {
                   </div>
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
-                      selected === "This Month"
+                      isSelected === "This Month"
                         ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
                         : ""
                     }`}
@@ -109,21 +190,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                     {loading ? (
-                        <Skeleton
-                          active
-                          paragraph={false}
-                          title={{ width: 100 }}
-                          style={{
-                            backgroundColor: "#ffffff1a",
-                            width: 50,
-                            borderRadius: "1rem",
-                            marginTop: "0.3rem",
-                          }}
-                        />
-                      ) : (
-                        tradeCount
-                      )}
+                    {loading ? (
+                      <Skeleton
+                        active
+                        paragraph={false}
+                        title={{ width: 100 }}
+                        style={{
+                          backgroundColor: "#ffffff1a",
+                          width: 50,
+                          borderRadius: "1rem",
+                          marginTop: "0.3rem",
+                        }}
+                      />
+                    ) : (
+                      tradeCount + onchainTotalCount + swapTotalCount
+                    )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -143,21 +224,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                  {loading ? (
-                        <Skeleton
-                          active
-                          paragraph={false}
-                          title={{ width: 100 }}
-                          style={{
-                            backgroundColor: "#ffffff1a",
-                            width: 50,
-                            borderRadius: "1rem",
-                            marginTop: "0.3rem",
-                          }}
-                        />
-                      ) : (
-                        tradeData
-                      )}
+                    {loading ? (
+                      <Skeleton
+                        active
+                        paragraph={false}
+                        title={{ width: 100 }}
+                        style={{
+                          backgroundColor: "#ffffff1a",
+                          width: 50,
+                          borderRadius: "1rem",
+                          marginTop: "0.3rem",
+                        }}
+                      />
+                    ) : (
+                      tradeData + isTradeTotalVolume
+                    )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -179,7 +260,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                    $12,345,678
+                    {loading ? (
+                      <Skeleton
+                        active
+                        paragraph={false}
+                        title={{ width: 100 }}
+                        style={{
+                          backgroundColor: "#ffffff1a",
+                          width: 50,
+                          borderRadius: "1rem",
+                          marginTop: "0.3rem",
+                        }}
+                      />
+                    ) : (
+                      isTradeActiveWallets
+                    )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -199,7 +294,21 @@ const page = () => {
                     Overall
                   </span>
                   <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
-                    $12,345,678
+                    {loading ? (
+                      <Skeleton
+                        active
+                        paragraph={false}
+                        title={{ width: 100 }}
+                        style={{
+                          backgroundColor: "#ffffff1a",
+                          width: 50,
+                          borderRadius: "1rem",
+                          marginTop: "0.3rem",
+                        }}
+                      />
+                    ) : (
+                      isTradeActiveWallets
+                    )}
                   </span>
                 </div>
                 <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
@@ -296,9 +405,11 @@ const page = () => {
             <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
               <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-3 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
                 <div className=" p-1">Top Trading Pair</div>
-                <div className=" flex p-2 cursor-pointer">
+                <div
+                  className=" flex p-2 cursor-pointer"
+                  onClick={() => handleButtonClick("This Week")}
+                >
                   <Image src={Filter} alt="Filter" className="" />
-
                   <span className=" text-[#2ED3B7] font-[800] text-[0.75rem] pl-2">
                     This week
                   </span>
@@ -307,120 +418,53 @@ const page = () => {
               <div className=" dark:bg-[#f2f9f9]">
                 <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
                   <div className=" w-[15%]">#</div>
-                  <div className="w-[65%]">Name</div>
+                  <div className="w-[35%]">Name</div>
+                  <div className="w-[30%]">Volume</div>
                   <div className=" w-[20%]"></div>
                 </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6]  dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
-                  <div className=" w-[15%]">1</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
+                <div>
+                  {loading ? (
+                    <div className=" flex justify-center items-center align-middle">
+                      <Lottie
+                        loop
+                        animationData={kanaloader}
+                        play
+                        style={{ width: 100, height: 100 }}
+                      />
                     </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
-                  <div className=" w-[15%]">2</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef dark:text-[#4A4B4D]] h-[3rem] p-3">
-                  <div className=" w-[15%]">3</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
-                  <div className=" w-[15%]">4</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
-                  <div className=" w-[15%]">5</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3">
-                  <div className=" w-[15%]">6</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] h-[3rem] p-3">
-                  <div className=" w-[15%]">7</div>
-                  <div className="w-[65%] flex justify-start">
-                    <Image src={solana} alt="Solana" />
-                    <Image src={Aptos} alt="Aptos" className=" ml-2" />
-                    <div className=" text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop pl-2">
-                      USDC/APT
-                    </div>
-                  </div>
-                  <div className=" w-[20%] flex justify-center">
-                    <Image src={CoinSwap} alt="CoinSwap" />
-                    <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
-                      Swap
-                    </div>
-                  </div>
+                  ) : (
+                    topTradingPairs?.length > 0 &&
+                    topTradingPairs.map((items: any, index: any) => (
+                      <div
+                        key={index}
+                        className="flex justify-between text-[0.875rem] font-[800] text-[#A5A5A6] dark:text-[#4A4B4D] border-b-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] h-[3rem] p-3"
+                      >
+                        <div className="w-[15%]">{index + 1}</div>
+                        <div className="w-[35%] flex justify-start">
+                          {/* <Image src={solana} alt="Solana" />
+                          <Image src={Aptos} alt="Aptos" className="ml-2" /> */}
+                          <div className="text-[#FFFFFF] dark:text-[#4A4B4D] text-[0.875rem] font-[800] font-manrop">
+                            {items.tokenName}
+                          </div>
+                        </div>
+                        <div className=" w-[30%]">
+                          {items.totalTargetVolume.toFixed(2)}
+                        </div>
+                        <div className="w-[20%] flex justify-center">
+                          <Image src={CoinSwap} alt="CoinSwap" />
+                          <a
+                            href="https://app.kanalabs.io/"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <div className="text-[#2ED3B7] font-[800] text-[0.875rem] pl-3">
+                              Swap
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>

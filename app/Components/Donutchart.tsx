@@ -16,24 +16,26 @@ ChartJS.register(
 
 const DonutChart = () => {
   const data = {
-    labels: ['Data', 'Data', 'Data', 'Data', 'Data'],
+    labels: ['Aptos', 'Klatyn', 'Ethereum', 'Polygon', 'base','Zksync'],
     datasets: [
       {
         label: 'Dataset 1',
-        data: [300, 50, 100, 80, 120, 60],
+        data: [300, 50, 100, 80, 120, 60,15],
         backgroundColor: [
-          '#8B59B4B2',
-          '#CF6B00B2',
-          '#00D971B2',
-          '#006BD1B2',
-          '#A43F82B2',
+          '#00B3FF',
+          '#FF007A',
+          '#FFC700',
+          '#FF8400',
+          '#00FF85',
+          '#8E00FF',
         ],
         borderColor: [
-          '#8B59B4B2',
-          '#CF6B00B2',
-          '#00D971B2',
-          '#006BD1B2',
-          '#A43F82B2',
+          '#00B3FF',
+          '#FF007A',
+          '#FFC700',
+          '#FF8400',
+          '#00FF85',
+          '#8E00FF',
         ],
         borderWidth: 1,
       },
