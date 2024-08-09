@@ -2,7 +2,7 @@ import { StateSlice, Store } from "../types";
 
 export type AppSlice = {
     isSelected : any;
-    loading:any;
+    loading:true;
     tradeData:any;
     tradeCount:any;
     isTradeTotalVolume:any;
@@ -22,7 +22,7 @@ export type AppSlice = {
 };
 
 export const createAppSlice: StateSlice<Store, AppSlice> = (set) => ({
-    isSelected:'Today',
+    isSelected:'This Week',
     loading: true,
     tradeData: null,
     tradeCount: null,

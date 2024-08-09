@@ -75,7 +75,7 @@ export const fetchOnchainSwapTotalCount = async () => {
 }
 export const fetchSwapTotalCount = async () => {
     try {
-        const response = await axios.get(`https://stats.kanalabs.io/transaction/count`);//Swap Total Count
+        const response = await axios.get(`https://stats.kanalabs.io/user/count`);//Swap Total Count
         console.log("SwapTotal Count %%%%%%%%% ", response);
         return response.data;
     } catch (error) {
@@ -116,7 +116,7 @@ export const fetchTokenURL = async () => {
     }
 }
 
-export const fetchReportByDateRange = async (requestData:any) => {
+export const fetchReportByDateRange = async (requestData: any) => {
     try {
         const response = await axios.post(`${SWAPURL}/dashboard/admin/transactionHistory`, requestData);
         if (response.status !== 200 || response.data.error) {
