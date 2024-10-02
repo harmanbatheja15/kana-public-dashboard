@@ -1,14 +1,9 @@
 import axios from 'axios';
-import { SWAPURL } from './constants';
-import { OnCHAINTRADEURL } from './constants';
+import { SWAPURL, OnCHAINTRADEURL } from './constants';
 
-const headers = {
-    "x-api-key": process.env.NEXT_PUBLIC_API_KEY!,
-  };
+const headers = {"x-api-key": process.env.NEXT_PUBLIC_API_KEY!};
+const headersURL = {"x-api-key": process.env.NEXT_LOGO_URL_API_KEY!}
 
-const headersURL={
-    "x-api-key":process.env.NEXT_LOGO_URL_API_KEY!,
-}
 export const fetchTotalVolume = async () => {
     try {
         const response = await axios.get(`${OnCHAINTRADEURL}/transaction/volume2`);//Swap Total Volume
@@ -19,6 +14,7 @@ export const fetchTotalVolume = async () => {
         throw error;
     }
 }
+
 export const fetchTradeTotalVolume = async () => {
     try {
         const response = await axios.get(`${OnCHAINTRADEURL}/trade/volume2`);//Trade Total Volume
@@ -52,6 +48,7 @@ export const fetchswapTotalCount = async () => {
         throw error;
     }
 }
+
 export const fetchToptradingPairs = async () => {
     try {
         const response = await axios.get(`https://referrals-dev.kanalabs.io/stats/fetchTradingPair`,{ headers: headers });//Top trading Pairs
@@ -73,6 +70,7 @@ export const fetchOnchainSwapTotalCount = async () => {
         throw error;
     }
 }
+
 export const fetchSwapTotalCount = async () => {
     try {
         const response = await axios.get(`https://stats.kanalabs.io/user/count`);//Swap Total Count
@@ -83,6 +81,7 @@ export const fetchSwapTotalCount = async () => {
         throw error;
     }
 }
+
 // export const swapTradingPairs = async () => {
 //     try {
 //         const response = await axios.get(`https://referrals-dev.kanalabs.io/stats/fetchTradingPair`);
@@ -105,6 +104,7 @@ export const fetchTradeActiveWallet = async () => {
         throw error;
     }
 }
+
 export const fetchTokenURL = async () => {
     try {
         const response = await axios.get(`https://utils.kanalabs.io/tokenList?chain=11`,{headers:headersURL});
@@ -130,5 +130,13 @@ export const fetchReportByDateRange = async (requestData: any) => {
     }
 }
 
-
-
+export const fetchChainPopularity = async () => {
+    try {
+        const response = await axios.get(`${OnCHAINTRADEURL}/transaction/getOriginAndDestinationVolume`);
+        console.log("Chain Popularity%%%%%%%%%: ", response);
+        return response.data;
+    } catch (error) {
+        console.error('Error in fetchTotalVolume:', error);
+        throw error;
+    }
+}

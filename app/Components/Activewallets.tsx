@@ -14,6 +14,7 @@ const Activewallets = () => {
     setIsTradeActiveWallets,
     isSelected,
   } = useStore();
+
   useEffect(() => {
     const getActiveWallets = async () => {
       try {
@@ -48,6 +49,7 @@ const Activewallets = () => {
     };
     getActiveWallets();
   }, [isSelected]);
+  
   return (
     <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
       <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-3 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem]">

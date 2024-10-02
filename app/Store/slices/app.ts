@@ -9,7 +9,9 @@ export type AppSlice = {
     isTradeActiveWallets:any;
     swapTotalCount:any;
     onchainTotalCount:any;
-    overallOptions:any
+    overallOptions:any;
+	chainPopularityOrigin:any;
+	chainPopularityDestination:any;
     updateIsSelected(payload:any):void;
     setLoading(payload:any):void;
     setTradeData(payload:any):void;
@@ -19,6 +21,8 @@ export type AppSlice = {
     updateSwapTotalCount(payload:any):void;
     updateOnchainTotalCount(payload:any):void;
     setOverallOptions(payload:any):void;
+	setChainPopularityOrigin(payload:any):void;
+	setChainPopularityDestination(payload:any):void;
 };
 
 export const createAppSlice: StateSlice<Store, AppSlice> = (set) => ({
@@ -31,6 +35,8 @@ export const createAppSlice: StateSlice<Store, AppSlice> = (set) => ({
     swapTotalCount:null,
     onchainTotalCount:null,
     overallOptions:'Overall',
+	chainPopularityOrigin:null,
+	chainPopularityDestination:null,
     updateIsSelected(payload: AppSlice['isSelected']) {
         set({ isSelected: payload });
       },
@@ -58,4 +64,10 @@ export const createAppSlice: StateSlice<Store, AppSlice> = (set) => ({
       setOverallOptions(payload : AppSlice['overallOptions']){
         set({overallOptions:payload});
       },
+	  setChainPopularityOrigin(payload : AppSlice['chainPopularityOrigin']){
+		set({chainPopularityOrigin:payload});
+	  },
+	  setChainPopularityDestination(payload : AppSlice['chainPopularityDestination']){
+		set({chainPopularityDestination:payload});
+	  }
 });

@@ -11,11 +11,13 @@ import Uniquewallets from "../Components/Uniquewallets";
 import Tradingpairs from "../Components/Tradingpairs";
 import Origin from "../Components/Origin";
 import Desitinationchain from "../Components/Desitinationchain";
+
 const page = () => {
   const { isSelected, updateIsSelected } = useStore();
   const handleButtonClick = (period: any) => {
     updateIsSelected(period);
   };
+
   return (
     <div className="w-full h-full flex flex-row justify-center items-center dark:bg-[#e4f2f3]  bg-[#0C0C0D] font-inter   ">
       <div className="flex flex-col  xxl:!w-[100%] bxl:!w-[100%] xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]    ">

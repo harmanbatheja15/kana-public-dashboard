@@ -10,9 +10,11 @@ import CoinSwap from "../assets/coins-swap-02.svg";
 const Tradingpairs = () => {
   const { isSelected, updateIsSelected, loading, setLoading } = useStore();
   const [topTradingPairs, setTopTradingPairs] = useState([]);
+
   const handleButtonClick = (period: any) => {
     updateIsSelected(period);
   };
+  
   useEffect(() => {
     const getTradingPairs = async () => {
       try {
@@ -41,6 +43,7 @@ const Tradingpairs = () => {
     };
     getTradingPairs();
   }, [isSelected]);
+  
   return (
     <div className=" w-full flex xxl:flex-row xl:flex-row sxl:flex-row lg:flex-row bxl:flex-row md:flex-col sm:flex-col xd:flex-col my-4">
       <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
@@ -70,7 +73,7 @@ const Tradingpairs = () => {
                   loop
                   animationData={kanaloader}
                   play
-                  style={{ width: 100, height: 100 }}
+                  style={{ width: 50, height: 50 }}
                 />
               </div>
             ) : (
