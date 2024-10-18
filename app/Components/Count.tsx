@@ -64,14 +64,14 @@ const Count: React.FC = () => {
   const totalCount = tradeCount + onchainTotalCount + swapTotalCount;
 
   return (
-    <div className="xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
-      <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] dark:border-[#e3e8ef] border-[#FFFFFF1A] border-b-[0.063rem]">
+    <div className="xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-2xl border-[0.063rem] border-[#FFFFFF1A] dark:border-[#e3e8ef] bg-[#111213] dark:bg-[#FCFDFE]">
+      <div className="h-14 rounded-t-2xl bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-extrabold text-[#A5A5A6] dark:text-[#777879] dark:border-[#e3e8ef] border-[#FFFFFF1A] border-b-[0.063rem]">
         Transaction Count
       </div>
-      <div className="h-[3rem] border-b-[0.063rem] dark:bg-[#f2f9f9] dark:border-[#e3e8ef] border-[#FFFFFF1A] p-[0rem_1rem_0rem_1rem] flex justify-between">
+      <div className="h-12 border-b-[0.063rem] dark:bg-[#f2f9f9] dark:border-[#e3e8ef] border-[#FFFFFF1A] p-[0rem_1rem_0rem_1rem] flex justify-between">
         <div className="flex py-3">
-          <span className="text-[#777879] text-[0.875rem]">Overall</span>
-          <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[0.875rem] font-[800] px-2">
+          <span className="text-[#777879] text-sm">Overall</span>
+          <span className="text-[#FFFFFFCC] dark:text-[#4A4B4D] text-sm font-extrabold px-2">
             {localLoading ? (
               <Skeleton
                 active
@@ -89,7 +89,7 @@ const Count: React.FC = () => {
             )}
           </span>
         </div>
-        <div className="text-[#777879] font-[400] text-[0.875rem] py-3 flex">
+        <div className="text-[#777879] font-normal text-sm py-3 flex">
           <Image src={Data} alt="Data" />
           <p className="pl-2">Data</p>
         </div>

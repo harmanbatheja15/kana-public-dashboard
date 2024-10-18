@@ -91,20 +91,20 @@ const Origin = () => {
   const { labels, volumes, colors } = processChainData(chainPopularityOrigin);
 
   return (
-    <div className=" xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-[1rem] border-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:bg-[#FCFDFE]">
-      <div className="h-[3.5rem] rounded-t-[1rem] bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-[800] text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
+    <div className="xxl:w-1/2 sxl:w-1/2 bxl:w-1/2 lg:w-1/2 md:w-full sm:w-full xd:w-full rounded-2xl border-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:bg-[#FCFDFE]">
+      <div className="h-14 rounded-t-2xl bg-[#17181A] dark:bg-[#FCFDFE] p-4 font-extrabold text-[#A5A5A6] dark:text-[#777879] border-[#FFFFFF1A] dark:border-[#e3e8ef] border-b-[0.063rem] flex justify-between">
         <div>Chain popularity (Origin)</div>
         <div className=" flex p-1 cursor-pointer">
-          <span className=" text-[#2ED3B7] font-[800] text-[0.75rem]">
+          <span className="text-[#2ED3B7] font-extrabold text-xs">
             Volume
           </span>
           <Image src={DropDown} alt="DropDown" className=" ml-1 mt-0.5" />
         </div>
       </div>
-      <div className=" h-[2.25rem] border-b-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:border-[#e3e8ef] dark:bg-[#f2f9f9]">
+      <div className="h-[2.25rem] border-b-[0.063rem] border-[#FFFFFF1A] bg-[#111213] dark:border-[#e3e8ef] dark:bg-[#f2f9f9]">
         <div className="flex justify-between p-[0.5%_17%]">
 		  {labels.map((label, index) => (
-			<div key={index} className="flex items-center text-[#A5A5A6] dark:text-[#777879] font-[800] text-[0.75rem]">
+			<div key={index} className="flex items-center text-[#A5A5A6] dark:text-[#777879] font-extrabold text-xs">
 				<span className="inline-block w-3 h-3 rounded-full mr-1" style={{ backgroundColor: colors[index] }}></span>
 				{label}
 			</div>

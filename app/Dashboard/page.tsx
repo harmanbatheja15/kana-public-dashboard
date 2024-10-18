@@ -20,18 +20,18 @@ const page = () => {
 
   return (
     <div className="w-full h-full flex flex-row justify-center items-center dark:bg-[#e4f2f3]  bg-[#0C0C0D] font-inter   ">
-      <div className="flex flex-col  xxl:!w-[100%] bxl:!w-[100%] xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-[100%] sm:!w-[100%] xd:!w-[100%]    ">
+      <div className="flex flex-col  xxl:!w-full bxl:!w-full xl:!w-[90%] sxl:!w-[95.5%] lg:!w-[96%] md:!w-full sm:!w-full xd:!w-full">
         <Navbar />
         <div className=" font-manrop h-full dark:bg-[#e4f2f3] w-full">
-          <div className=" justify-center py-[1rem] h-full w-full flex xxl:flex-row xl:flex-row sxl:flex-row bxl:flex-row lg:flex-row md:flex-col sm:flex-col xd:flex-col  xxl:mt-[6.5rem] xl:mt-[6.5rem] lg:mt-[6.5rem] md:mt-[9rem] sm:mt-[6.5rem] xd:mt-[6.5rem] gap-[1rem] ">
-            <div className="h-[4rem] w-full  xxl:rounded-[1rem] bxl:rounded-[1rem] xl:rounded-[1rem] sxl:rounded-[1rem] lg:rounded-[1rem] md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#17181A] p-[0%_2%] flex items-center justify-start gap-[1rem] xxl:flex xl:flex sxl:flex bxl:flex lg:flex md:hidden sm:hidden xd:hidden ">
-              <div className=" font-[800] text-[#FFFFFFCC] dark:text-[#4A4B4D] text-[1.5rem] flex justify-between w-full">
+          <div className=" justify-center py-4 h-full w-full flex xxl:flex-row xl:flex-row sxl:flex-row bxl:flex-row lg:flex-row md:flex-col sm:flex-col xd:flex-col  xxl:mt-[6.5rem] xl:mt-[6.5rem] lg:mt-[6.5rem] md:mt-36 sm:mt-[6.5rem] xd:mt-[6.5rem] gap-4 ">
+            <div className="h-16 w-full  xxl:rounded-2xl bxl:rounded-2xl xl:rounded-2xl sxl:rounded-2xl lg:rounded-2xl md:rounded-b-none sm:rounded-none xd:rounded-none dark:bg-[#FCFDFE] bg-[#17181A] p-[0%_2%] flex items-center justify-start gap-4 xxl:flex xl:flex sxl:flex bxl:flex lg:flex md:hidden sm:hidden xd:hidden ">
+              <div className=" font-extrabold text-[#FFFFFFCC] dark:text-[#4A4B4D] text-2xl flex justify-between w-full">
                 <div>Stats</div>
-                <div className="text-[#2ED3B7] font-[800] text-[0.75rem] flex">
+                <div className="text-[#2ED3B7] font-extrabold text-xs flex">
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
                       isSelected === "Today"
-                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        ? "border-2 border-[#2ED3B7] rounded-lg"
                         : ""
                     }`}
                     onClick={() => handleButtonClick("Today")}
@@ -41,7 +41,7 @@ const page = () => {
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
                       isSelected === "This Week"
-                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        ? "border-2 border-[#2ED3B7] rounded-lg"
                         : ""
                     }`}
                     onClick={() => handleButtonClick("This Week")}
@@ -51,7 +51,7 @@ const page = () => {
                   <div
                     className={`flex justify-center items-center p-[0.5rem_1rem_0.5rem_1rem] cursor-pointer ${
                       isSelected === "This Month"
-                        ? "border-2 border-[#2ED3B7] rounded-[0.5rem]"
+                        ? "border-2 border-[#2ED3B7] rounded-lg"
                         : ""
                     }`}
                     onClick={() => handleButtonClick("This Month")}
@@ -61,12 +61,12 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className=" xxl:hidden sxl:hidden bxl:hidden lg:hidden md:flex-col sm:flex-col xd:flex-col justify-center items-center text-[#2ED3B7] font-[800]">
-              <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] flex justify-between p-5">
+            <div className=" xxl:hidden sxl:hidden bxl:hidden lg:hidden md:flex-col sm:flex-col xd:flex-col justify-center items-center text-[#2ED3B7] font-extrabold">
+              <div className="h-16 w-full rounded-2xl dark:bg-[#FCFDFE] bg-[#17181A]  gap-4 flex justify-between p-5">
                 <div>Overall</div>
                 <Image src={GreenDown} alt="GreenDown" />
               </div>
-              <div className="h-[4rem] w-full rounded-[1rem] dark:bg-[#FCFDFE] bg-[#17181A]  gap-[1rem] my-2 flex justify-between p-5">
+              <div className="h-16 w-full rounded-2xl dark:bg-[#FCFDFE] bg-[#17181A]  gap-4 my-2 flex justify-between p-5">
                 <div>This Week</div>
                 <Image src={GreenDown} alt="GreenDown" />
               </div>
